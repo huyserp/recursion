@@ -1,29 +1,25 @@
 require 'pry'
 
 def merge_sort(arr)
-    length = arr.length
-    if length < 2
+    if arr.length < 2
         arr
     else
-        arr_two = arr[0..(length/2) - 1]
-        arr_three = arr[(length/2)..arr[length]]
+        arr_two = arr[0..(arr.length/2) - 1] #FIRST HALF (LEFT)
+        arr_three = arr[(arr.length/2)..arr[arr.length]] #SECOND HALF (RIGHT)
         merge(merge_sort(arr_two), merge_sort(arr_three))
     end
 end
 
 def merge(arr_two, arr_three)
-    sorted = []
+    arr = []
     until arr_two.empty? || arr_three.empty?
-        if arr_two[0] <= arr_three[0]
-            sorted << arr_two.shift
-        else
-            sorted << arr_three.shift
-        end
+        arr_two[0] < arr_three[0] ? arr << arr_two.shift : arr << arr_three.shift
     end
-    sorted + arr_two + arr_three
+    arr + arr_two + arr_three
 end
-my_array = [23, 8, 3, 2, 9, 7, 1, 5, 4, 6, 10]
-p merge_sort(my_array)
+p merge_sort([23, 8, 3, 2, 9, 7, 1, 5, 4, 6, 10])
+p merge_sort([100, 2213, 394, 2, 11, 55, 82, 91, 19, 4, 73])
+p merge_sort([10, 9, 8, 7, 6, 5, 4, 3, 2, 1])
 
 ## Alternate algorithm below for merge... doesn't work at this time...
 #         pointer1 = 0
